@@ -165,3 +165,129 @@ ORDER BY total_views DESC
     labels={true}
     labelPosition="inside"
 />
+
+
+## 🎬 Content Performance
+```sql content_performance
+SELECT
+    topic_name,
+
+    COUNT(post_id) AS total_posts,
+
+    SUM(total_views) AS total_views,
+    SUM(reach) AS total_reach,
+    SUM(engagement_clean) AS total_engagement,
+
+    -- ✅ weighted engagement rate
+    SUM(engagement_clean) * 1.0 / NULLIF(SUM(reach), 0) AS engagement_rate,
+
+    AVG(avg_watch_time_seconds) AS avg_watch_time,
+
+    AVG(audience_retention_avg_percent_watched) AS avg_retention
+FROM post_performance_enriched
+GROUP BY topic_name
+ORDER BY total_views DESC
+```
+ 
+```sql engagement_pie
+SELECT
+    topic_name AS name,
+    SUM(engagement_clean) AS value
+from supabase.post_performance_enriched 
+GROUP BY topic_name
+ORDER BY value DESC
+```
+
+```sql retention_pie
+SELECT
+    topic_name AS name,
+    ROUND(AVG(audience_retention_avg_percent_watched), 2) AS value
+FROM supabase.post_performance_enriched
+GROUP BY topic_name
+ORDER BY value DESC
+```
+
+
+<ECharts config={
+{
+title: {
+text: 'Total Engagement by Topic',
+left: 'left',
+top: 10
+},
+tooltip: {
+trigger: 'item',
+formatter: function(params) {
+let val = params.value;
+let formatted = val >= 1000 ? (val/1000).toFixed(1) + 'K' : val;
+return params.name + ': ' + formatted + ' (' + params.percent + '%)';
+}
+},
+series: [
+{
+name: 'Engagement',
+type: 'pie',
+radius: '65%',
+data: [...engagement_pie],
+label: {
+show: true,
+formatter: function(params) {
+let val = params.value;
+let formatted = val >= 1000 ? (val/1000).toFixed(1) + 'K' : val;
+return params.name + '\n' + formatted;
+},
+fontSize: 13,
+fontWeight: 'bold'
+},
+labelLine: {
+show: true
+}
+}
+]
+}
+}/>
+
+<BarChart
+    data={content_performance}
+    x="topic_name"
+    y="total_views"
+    title="Views by Content Topic"
+    xAxisTitle="Topic"
+    yAxisTitle="Total Views"
+    yFmt="num1m"
+    labels={true}
+    labelFmt="num1m"
+    labelPosition="inside"
+    height={500}
+/>
+
+<ECharts config={
+{
+title: {
+text: 'Audience Retention by Topic',
+left: 'left',
+top: 10
+},
+tooltip: {
+trigger: 'item',
+formatter: '{b}: {c}% ({d}%)'
+},
+series: [
+{
+name: 'Audience Retention',
+type: 'pie',
+radius: ['40%', '70%'],
+data: [...retention_pie],
+label: {
+show: true,
+formatter: '{b}\n{c}%',
+fontSize: 13,
+position: 'outside'
+},
+labelLine: {
+show: true
+}
+}
+]
+}
+}/>
