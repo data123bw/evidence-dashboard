@@ -1,46 +1,35 @@
----
-title: Welcome to Evidence
----
+<h1 align="center" style="font-size: 2.25rem; font-weight: 700;">
+  Welcome to Data 123 Dashboard Demo
+</h1>
+
+## 1. Employee Satisfaction Dashboard
+
+
+<Details title='More about this dashboar'>
+
+  This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
+</Details>
+
+## 2. Employee Satisfaction Dashboard
+
 
 <Details title='How to edit this page'>
 
   This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
 </Details>
 
-```sql categories
-  select
-      category
-  from needful_things.orders
-  group by category
-```
+## 3. Employee Satisfaction Dashboard
 
-<Dropdown data={categories} name=category value=category>
-    <DropdownOption value="%" valueLabel="All Categories"/>
-</Dropdown>
 
-<Dropdown name=year>
-    <DropdownOption value=% valueLabel="All Years"/>
-    <DropdownOption value=2019/>
-    <DropdownOption value=2020/>
-    <DropdownOption value=2021/>
-</Dropdown>
+<Details title='How to edit this page'>
 
-```sql orders_by_category
-  select 
-      date_trunc('month', order_datetime) as month,
-      sum(sales) as sales_usd,
-      category
-  from needful_things.orders
-  where category like '${inputs.category.value}'
-  and date_part('year', order_datetime) like '${inputs.year.value}'
-  group by all
-  order by sales_usd desc
-```
+  This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
+</Details>
 
-<BarChart
-    data={orders_by_category}
-    title="Sales by Month, {inputs.category.label}"
-    x=month
-    y=sales_usd
-    series=category
-/>
+## 4. Employee Satisfaction Dashboard
+
+
+<Details title='How to edit this page'>
+
+  This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
+</Details>

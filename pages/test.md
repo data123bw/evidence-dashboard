@@ -19,7 +19,7 @@ SELECT * FROM (
         ('SOWA TOWN', 30000)
 ) AS t(district_name, total_views)
 ```
-
+## Views Distribution Across Botswana Districts
  <AreaMap 
     data={botswana_demo}
     areaCol=district_name
