@@ -2,7 +2,9 @@
   Welcome to Data 123 Dashboard Demo
 </h1>
 
-## 1. Employee Satisfaction Dashboard
+
+ 
+## 1. Influencer Analytics Dashboard
 
 
 <Details title='More about this dashboar'>
@@ -10,7 +12,7 @@
   This page can be found in your project at `/pages/index.md`. Make a change to the markdown file and save it to see the change take effect in your browser.
 </Details>
 
-## 2. Employee Satisfaction Dashboard
+## 2. Customer Satisfaction Dashboard
 
 
 <Details title='How to edit this page'>
